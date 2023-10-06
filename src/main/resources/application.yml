@@ -3,6 +3,7 @@ server:
   port: 8090
 
 jwt.secret.key: secretKey
+
 #database config
 #spring:
 #  datasource:
