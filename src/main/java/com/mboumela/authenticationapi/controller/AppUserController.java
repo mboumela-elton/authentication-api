@@ -16,30 +16,33 @@ import com.mboumela.authenticationapi.filters.AppUserAuthenticationProvider;
 import com.mboumela.authenticationapi.services.AccountService;
 import com.mboumela.authenticationapi.utils.RolesEnum;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
 public class AppUserController {
-	
+
 	private final AccountService accountService;
 	private final AppUserAuthenticationProvider appUserAuthenticationProvider;
-	
-	@GetMapping("/yo")
-	@PreAuthorize("hasRole('ROLE_USER')")
-	public String yo() {
-		System.out.println("yo");
-		return "yo";
-	}
-	
-	@GetMapping("/user/hello")
-	@PreAuthorize("hasRole('ROLE_USER')")
-	public String hello() {
-		System.out.println("bg");
-		return "hello";
-	}
-	
+
+//	@GetMapping("/yo")
+//	@PreAuthorize("hasRole('ROLE_USER')")
+//	public String yo() {
+//		System.out.println("yo");
+//		return "yo";
+//	}
+//	
+//	@GetMapping("/user/hello")
+//	@PreAuthorize("hasRole('ROLE_USER')")
+//	public String hello() {
+//		System.out.println("bg");
+//		return "hello";
+//	}
+	@Operation(summary = "to sign up user")
 	@PostMapping("/public/signup")
 	public ResponseEntity<AppUserDto> Signup(@RequestBody @Valid SignUpDto signUpDto) {
 //		accountService.addNewRole(RolesEnum.USER.name());
@@ -48,11 +51,12 @@ public class AppUserController {
 		newUser.setToken(appUserAuthenticationProvider.createToken(newUser));
 		return ResponseEntity.created(URI.create("/user/" + newUser.getEmail())).body(newUser);
 	}
-	
+
+	@Operation(summary = "to login user")
 	@PostMapping("/public/login")
-    public ResponseEntity<AppUserDto> login(@RequestBody @Valid LoginDto loginDto) {
-        AppUserDto appUserDto = accountService.loadUserByEmail(loginDto.email());
-        appUserDto.setToken(appUserAuthenticationProvider.createToken(appUserDto));
-        return ResponseEntity.ok(appUserDto);
-    }
+	public ResponseEntity<AppUserDto> login(@RequestBody @Valid LoginDto loginDto) {
+		AppUserDto appUserDto = accountService.loadUserByEmail(loginDto.email());
+		appUserDto.setToken(appUserAuthenticationProvider.createToken(appUserDto));
+		return ResponseEntity.ok(appUserDto);
+	}
 }

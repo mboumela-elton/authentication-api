@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-	private final UserDetailServiceImpl userDetailServiceImpl;
+//	private final UserDetailServiceImpl userDetailServiceImpl;
 
 	private final AppUserAuthenticationProvider appUserAuthenticationProvider;
 
@@ -31,7 +31,9 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable());
 		http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
+		http.authorizeHttpRequests(auth -> auth
+				.requestMatchers("/api/v1/auth/**","/v3/api-docs/**","/v3/api-docs.yml","/swagger-ui/**", "/swagger-ui.html")
+				.permitAll());	
 		http.authorizeHttpRequests(auth -> auth
 				.requestMatchers("/public/**")
 				.permitAll()
