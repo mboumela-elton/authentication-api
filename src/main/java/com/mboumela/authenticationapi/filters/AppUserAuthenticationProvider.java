@@ -1,9 +1,6 @@
 package com.mboumela.authenticationapi.filters;
 
-import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,8 +8,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -22,7 +17,6 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.mboumela.authenticationapi.dtos.AppUserDto;
-import com.mboumela.authenticationapi.entities.AppRole;
 import com.mboumela.authenticationapi.services.AccountService;
 
 import jakarta.annotation.PostConstruct;
@@ -32,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 @Component
 public class AppUserAuthenticationProvider {
 	
-	@Value("${jwt.secret.key:secretKey}")
+	@Value("${jwt.secret.key}")
 	private String secretKey; 
 	
 	private final AccountService accountService;
@@ -44,14 +38,14 @@ public class AppUserAuthenticationProvider {
 	}
 	
 	public String createToken(AppUserDto appUserDto) {
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + 3600000); // 1 hour
+//        Date now = new Date();
+//        Date validity = new Date(now.getTime() + 3600000*24*30*12); // 1 year
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
         return JWT.create()
                 .withIssuer(appUserDto.getEmail())
-                .withIssuedAt(now)
-                .withExpiresAt(validity)
+//                .withIssuedAt(now)
+//                .withExpiresAt(validity)
                 .withClaim("roles", appUserDto.getRoles().stream().map(ga -> ga.getRoleName()).collect(Collectors.toList()))
                 .sign(algorithm);
     }

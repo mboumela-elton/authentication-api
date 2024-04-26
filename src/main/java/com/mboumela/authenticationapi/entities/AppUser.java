@@ -1,5 +1,6 @@
 package com.mboumela.authenticationapi.entities;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -29,13 +30,9 @@ public class AppUser {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "user_name", nullable = false)
     @Size(max = 100)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false)
-    @Size(max = 100)
-    private String lastName;
+    private String username;
 
     @Column(nullable = false, unique = true)
     @Size(max = 100)
@@ -45,9 +42,20 @@ public class AppUser {
     @Size(max = 100)
     private String password;
     
+    @Column(name = "date_created", nullable = false)
+    private String dateCreated;
+    
   //all roles are changed
     @ManyToMany(fetch = FetchType.EAGER)
     @Size(max = 200)
     private List<AppRole> roles;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Size(max = 200)
+    private List<Form> forms;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Size(max = 200)
+    private List<Cv> cvs;
 
 }

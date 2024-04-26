@@ -2,32 +2,45 @@
 server:
   port: 8090
 
+#jwt secret
 jwt.secret.key: secretKey
 
-#database config
-#spring:
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/auth_db?createDatabaseIfNotExist=true
-#    username: root
-#    password: 13AntiviruS46
-#  
-#  jpa:
-#    properties:
-#      hibernate:
-#        dialect: org.hibernate.dialect.MariaDBDialect
-#    hibernate:
-#      ddl-auto: update
-#    defer-datasource-initialization: true
+#admin secret
+admin.username: admin
+admin.email: admin@gmail.com
+admin.password: Azerty
 
+#inital folders
+parent.path: C:/Users/User/Documents/workspace-spring-tool-suite-4-4.18.0.RELEASE/authentification-api/files/
+forms.students.folder: forms/students/
+forms.workers.folder: forms/workers/
+cv.students.folder: cv/students/
+cv.workers.folder: cv/workers/
+
+#database config
 spring:
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/auth_db
-    username: postgres
-    password: 13AntiviruS46
+    url: jdbc:mysql://localhost:3306/auth_db?createDatabaseIfNotExist=true
+    username: root
+    password:
   
   jpa:
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.Mysql
     hibernate:
       ddl-auto: update
     defer-datasource-initialization: true
+
+#spring:
+#  datasource:
+#    driver-class-name: org.postgresql.Driver
+#    url: jdbc:postgresql://localhost:5432/auth_db
+#    username: postgres
+#    password: 13AntiviruS46
+#  
+#  jpa:
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#    hibernate:
+#      ddl-auto: update
+#    defer-datasource-initialization: true

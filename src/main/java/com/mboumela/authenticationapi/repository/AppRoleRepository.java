@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.mboumela.authenticationapi.entities.AppRole;
 
-
-public interface AppRoleRepository extends JpaRepository<AppRole, Long> {
+public interface AppRoleRepository extends JpaRepository<AppRole, String> {
 	Optional<AppRole> findByRoleName(String roleName);
 }

@@ -2,6 +2,7 @@ package com.mboumela.authenticationapi.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,7 +33,7 @@ public class SecurityConfig {
 		http.csrf(csrf -> csrf.disable());
 		http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 		http.authorizeHttpRequests(auth -> auth
-				.requestMatchers("/api/v1/auth/**","/v3/api-docs/**","/v3/api-docs.yml","/swagger-ui/**", "/swagger-ui.html")
+				.requestMatchers("resources/**", "/api/v1/auth/**","/v3/api-docs/**","/v3/api-docs.yml","/swagger-ui/**", "/swagger-ui.html")
 				.permitAll());	
 		http.authorizeHttpRequests(auth -> auth
 				.requestMatchers("/public/**")

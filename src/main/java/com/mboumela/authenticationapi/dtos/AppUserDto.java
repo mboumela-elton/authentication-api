@@ -16,8 +16,7 @@ import lombok.NoArgsConstructor;
 public class AppUserDto {
 	
 	private Long userId;
-    private String firstName;
-    private String lastName;
+    private String username;
     private String email;
     private List<AppRole> roles;
     private String token;

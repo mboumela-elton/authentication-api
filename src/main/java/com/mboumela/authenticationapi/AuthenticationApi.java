@@ -13,7 +13,8 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
 
-@SpringBootApplication
+import java.io.File;
+
 @OpenAPIDefinition(
 		info = @Info(
 			contact = @Contact(
@@ -52,10 +53,29 @@ import io.swagger.v3.oas.annotations.servers.Server;
 		in = SecuritySchemeIn.HEADER
 )
 
+@SpringBootApplication
 public class AuthenticationApi {
+	 public static String parentFolder;
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuthenticationApi.class, args);
+		 String dossierPath = "files";
+	        
+	        // Créez une instance de la classe File avec le chemin du dossier
+	        File dossier = new File(dossierPath);
+	        
+	        // Vérifiez si le dossier existe
+	        if (dossier.exists()) {
+	            // Obtenez le chemin absolu du dossier
+	            String cheminAbsolu = dossier.getAbsolutePath();
+	            
+	            parentFolder = cheminAbsolu + "\\";
+	            
+	            System.out.println("Chemin absolu du dossier : " + cheminAbsolu);
+	        } else {
+	            System.out.println("Le dossier n'existe pas.");
+	        }
+	        
+	        SpringApplication.run(AuthenticationApi.class, args);  
 	}
 
 }
