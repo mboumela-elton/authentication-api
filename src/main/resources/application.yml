@@ -19,6 +19,8 @@ cv.workers.folder: cv/workers/
 
 #database config
 spring:
+  application:
+    name: auth
   datasource:
     url: jdbc:mysql://localhost:3306/auth_db?createDatabaseIfNotExist=true
     username: root
